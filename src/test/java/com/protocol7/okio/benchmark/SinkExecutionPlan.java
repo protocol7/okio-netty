@@ -13,15 +13,15 @@ import org.openjdk.jmh.annotations.State;
 @State(Scope.Benchmark)
 public class SinkExecutionPlan {
 
-    @Param({ "1024", "8192", "1048510"})
-    public int size;
+  @Param({"1024", "8192", "1048510"})
+  public int size;
 
-    public Buffer buffer;
-    public ByteBuf bb;
+  public Buffer buffer;
+  public ByteBuf bb;
 
-    @Setup(Level.Invocation)
-    public void setup() {
-        bb = Unpooled.buffer();
-        buffer = new Buffer().write(TestUtil.rnd(size));
-    }
+  @Setup(Level.Invocation)
+  public void setup() {
+    bb = Unpooled.buffer();
+    buffer = new Buffer().write(TestUtil.rnd(size));
+  }
 }

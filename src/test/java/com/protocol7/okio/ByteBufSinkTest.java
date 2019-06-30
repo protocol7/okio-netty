@@ -5,8 +5,8 @@ import okio.Sink;
 
 public class ByteBufSinkTest extends SinkTestTemplate {
 
-    @Override
-    protected Sink sink(final ByteBuf bb) {
-        return new ByteBufSink(bb);
-    }
+  @Override
+  protected Sink sink(final ByteBuf bb) {
+    return new ByteBufSink(bb);
+  }
 }

@@ -13,15 +13,15 @@ import org.openjdk.jmh.annotations.State;
 @State(Scope.Benchmark)
 public class SourceExecutionPlan {
 
-    @Param({ "1024", "8192", "1048510"})
-    public int size;
+  @Param({"1024", "8192", "1048510"})
+  public int size;
 
-    public Buffer buffer;
-    public ByteBuf bb;
+  public Buffer buffer;
+  public ByteBuf bb;
 
-    @Setup(Level.Invocation)
-    public void setup() {
-        bb = Unpooled.wrappedBuffer(TestUtil.rnd(size));
-        buffer = new Buffer();
-    }
+  @Setup(Level.Invocation)
+  public void setup() {
+    bb = Unpooled.wrappedBuffer(TestUtil.rnd(size));
+    buffer = new Buffer();
+  }
 }
