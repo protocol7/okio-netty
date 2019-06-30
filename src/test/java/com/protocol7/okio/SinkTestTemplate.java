@@ -7,12 +7,11 @@ import okio.Sink;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.Assert.assertArrayEquals;
 
-public abstract class SinkTest {
+public abstract class SinkTestTemplate {
 
     private static final byte[] DATA = "hello".getBytes(US_ASCII);
     private static final byte[] PARTIAL = "ello".getBytes(US_ASCII);
@@ -34,7 +33,7 @@ public abstract class SinkTest {
         final ByteBuf bb = Unpooled.buffer();
         final Buffer buf = new Buffer().write(DATA);
 
-        final UnsafeByteBufSink sink = new UnsafeByteBufSink(bb);
+        final ByteBufSink sink = new ByteBufSink(bb);
         sink.write(buf, 2);
 
         assertByteBuf("he".getBytes(US_ASCII), bb);

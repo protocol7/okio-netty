@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public abstract class SourceTest {
+public abstract class SourceTestTemplate {
 
   private static final byte[] DATA1 = "hello".getBytes(StandardCharsets.US_ASCII);
 

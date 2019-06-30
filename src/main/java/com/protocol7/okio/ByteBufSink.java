@@ -5,11 +5,10 @@ import okio.Buffer;
 import okio.Sink;
 import okio.Timeout;
 
-import java.io.EOFException;
-
 public class ByteBufSink implements Sink {
 
     private final ByteBuf bb;
+    private long offset = 0;
 
     public ByteBufSink(final ByteBuf bb) {
         this.bb = bb;
@@ -21,11 +20,20 @@ public class ByteBufSink implements Sink {
     }
 
     @Override
-    public void write(final Buffer source, final long byteCount) throws EOFException {
+    public void write(final Buffer source, final long byteCount) {
         if (byteCount < 0) {
             throw new IllegalArgumentException("Too small byteCount");
         }
-        bb.writeBytes(source.readByteArray(byteCount));
+        long read = 0;
+        try (Buffer.UnsafeCursor cursor = source.readUnsafe()) {
+            cursor.seek(offset);
+            do  {
+                int len = Math.min(cursor.end - cursor.start, (int)(byteCount - read));
+                bb.writeBytes(cursor.data, cursor.start, len);
+                read += len;
+            } while(cursor.next() != -1 && read < byteCount);
+        }
+        offset += byteCount;
     }
 
     @Override

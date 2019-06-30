@@ -1,9 +1,7 @@
 package com.protocol7.okio.benchmark;
 
-import com.protocol7.okio.ArrayByteBufSource;
-import com.protocol7.okio.ByteBufSink;
 import com.protocol7.okio.ByteBufSource;
-import com.protocol7.okio.UnsafeByteBufSink;
+import com.protocol7.okio.ByteBufSink;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -25,22 +23,12 @@ public class Bench {
   }
 
   @Benchmark
-  public void naiveSink(final SinkExecutionPlan plan, final Blackhole blackhole) throws IOException {
+  public void unsafeSink(final SinkExecutionPlan plan, final Blackhole blackhole) throws IOException {
       blackhole.consume(plan.buffer.readAll(new ByteBufSink(plan.bb)));
   }
 
   @Benchmark
-  public void unsafeSink(final SinkExecutionPlan plan, final Blackhole blackhole) throws IOException {
-      blackhole.consume(plan.buffer.readAll(new UnsafeByteBufSink(plan.bb)));
-  }
-
-  @Benchmark
-  public void naiveSource(final SourceExecutionPlan plan, final Blackhole blackhole) throws IOException {
-    blackhole.consume(plan.buffer.writeAll(new ByteBufSource(plan.bb)));
-  }
-
-  @Benchmark
   public void arraySource(final SourceExecutionPlan plan, final Blackhole blackhole) throws IOException {
-    blackhole.consume(plan.buffer.writeAll(new ArrayByteBufSource(plan.bb)));
+    blackhole.consume(plan.buffer.writeAll(new ByteBufSource(plan.bb)));
   }
 }

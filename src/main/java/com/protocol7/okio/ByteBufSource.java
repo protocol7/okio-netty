@@ -26,9 +26,14 @@ public class ByteBufSource implements Source {
       return -1;
     }
 
-    final byte[] b = new byte[readBytes];
-    bb.readBytes(b);
-    sink.write(b);
+    if (bb.hasArray()) {
+      sink.write(bb.array(), bb.readerIndex(), readBytes);
+      bb.readerIndex(bb.readerIndex() + readBytes);
+    } else {
+      final byte[] b = new byte[readBytes];
+      bb.readBytes(b);
+      sink.write(b);
+    }
     return readBytes;
   }
 
