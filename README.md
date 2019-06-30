@@ -1,7 +1,11 @@
 # okio-netty
 
-okio Source and Sink implementations for Netty ByteBuf, allowing for efficient
-transfer of data between the two buffer implementations.
+[okio](https://github.com/square/okio)
+[Source](https://square.github.io/okio/2.x/okio/jvm/okio/-source/index.html)
+and [Sink](https://square.github.io/okio/2.x/okio/jvm/okio/-sink/index.html)
+implementations for [Netty](https://netty.io/)
+[ByteBuf](https://netty.io/4.1/api/io/netty/buffer/ByteBuf.html), allowing
+for efficient transfer of data between the two buffer implementations.
 
 okio is a convenient and high performance buffer and bytestring library. Netty
 is a high performance networking library, containing its own buffer
